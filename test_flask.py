@@ -1,5 +1,6 @@
 #test for flask
-from flask import Flask,url_for
+from flask import Flask,url_for,render_template
+import datetime
 
 app = Flask(__name__)
 
@@ -12,7 +13,13 @@ def index():
     return "index"
 
 @app.route('/login')
-def login(): pass
+def login(): 
+    now = datetime.datetime.now()
+    nowtimeformat = now.strftime("%Y-%m-%d  %H:%M")
+    templatedata = {
+        'time' : nowtimeformat
+    }
+    return render_template('index.html', **templatedata)
 
 @app.route('/user/<username>')
 def profile(username): pass
