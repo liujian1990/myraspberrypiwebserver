@@ -1,3 +1,5 @@
 from flaskr import flaskr
-
-flaskr.app.run(host='192.168.1.106', port=80)
+try:
+    flaskr.app.run(host='0.0.0.0', port=80)
+except Exception,e:
+    print "[*] error:",e

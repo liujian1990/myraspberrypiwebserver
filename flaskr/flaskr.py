@@ -16,6 +16,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from werkzeug import secure_filename
 
+UPLOAD_FOLDER = '/home/pi/uploads/'
 # create our little application :)
 app = Flask(__name__)
 
@@ -112,7 +113,15 @@ def logout():
 @app.route('/upload',methods=['GET','POST'])
 def upload_file():
     if request.method == 'POST':
-       f = request.files['the_file']
-       f.save('./uploads' + secure_filename(f.filename))
+       f = request.files['file']
+       fname = secure_filename(f.filename)
+       #f.save(os.path.join(UPLOAD_FOLDER), fname)
+       f.save(UPLOAD_FOLDER+fname)
+       return "Upload OK!"
+       
+       #return redirect(url_for('login'))
     return render_template('upload.html')
- 
+
+@app.route('/play')
+def play_vedio():
+    return render_template('play.html')
